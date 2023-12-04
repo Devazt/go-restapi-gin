@@ -3,12 +3,25 @@ package models
 import "time"
 
 type User struct {
-	Id        int64  `gorm:"primaryKey;autoIncrement" json:"id"`
-	Name      string `gorm:"type:varchar(100)" json:"name"`
-	Address   string `gorm:"type:varchar(300)" json:"address"`
-	Gender    string `gorm:"type:varchar(100)" json:"gender"`
-	Username  string `gorm:"type:varchar(100)" json:"username"`
-	Password  string `gorm:"type:varchar(100)" json:"password"`
+	ID        int       `gorm:"primaryKey;autoIncrement" json:"id"`
+	Name      string    `gorm:"type:varchar(255)" json:"name"`
+	Address   string    `gorm:"type:varchar(255)" json:"address"`
+	Gender    string    `gorm:"type:varchar(255)" json:"gender"`
+	Username  string    `gorm:"type:varchar(255)" json:"username"`
+	Password  string    `gorm:"type:varchar(255)" json:"password"`
+	Articles  []Article `json:"articles"`
+	Vote      Vote      `json:"vote"`
 	CreatedAt time.Time
 	UpdatedAt time.Time
+}
+
+type UserVoteResponse struct {
+	ID      int    `json:"id"`
+	Name    string `json:"name"`
+	Address string `json:"address"`
+	Gender  string `json:"gender"`
+}
+
+func (UserVoteResponse) TableName() string {
+	return "users"
 }
